@@ -52,7 +52,11 @@ const StickyFooter = () => {
           </Grid>
           <Grid item sm={1}>
             <Tooltip title='Go to repository'>
-              <IconButton href='https://github.com/jsontypedef' target='_blank' rel='noreferrer'>
+              <IconButton
+                href='https://github.com/Ningensei848/jtd-validator'
+                target='_blank'
+                rel='noreferrer'
+              >
                 <GitHubIcon color='action' sx={{ fontSize: 40 }} />
               </IconButton>
             </Tooltip>

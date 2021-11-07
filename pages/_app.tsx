@@ -4,9 +4,11 @@ import { AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import theme from '../src/theme'
-import createEmotionCache from '../src/createEmotionCache'
+import theme from 'src/theme'
+import createEmotionCache from 'src/createEmotionCache'
 import Layout from 'src/components/Layout'
+
+import { GoogleAnalytics, usePageView } from 'src/components/GoogleAnalytics'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -15,12 +17,14 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
 
-export default function MyApp(props: MyAppProps) {
+const App: React.FC<MyAppProps> = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  usePageView()
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>My page</title>
+        <GoogleAnalytics />
+        <title>JSON Typed Definition Validator</title>
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
       <ThemeProvider theme={theme}>
@@ -33,3 +37,4 @@ export default function MyApp(props: MyAppProps) {
     </CacheProvider>
   )
 }
+export default App

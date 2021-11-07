@@ -16,6 +16,7 @@ import CopySuccessIcon from '@mui/icons-material/LibraryAddCheck'
 
 import copyAction from 'src/action'
 import ShareButtons from 'src/components/ShareButton'
+import { event as gtagEvent } from 'src/components/GoogleAnalytics'
 
 const delay = 1000
 const ShareDialog: React.FC<{
@@ -80,7 +81,16 @@ const ShareDialog: React.FC<{
             onFocus={(event) => event.target.select()}
           />
           <Tooltip title={copy ? 'Copied !' : 'Copy'}>
-            <IconButton onClick={async () => await copyAction('Copy', url, setCopy)}>
+            <IconButton
+              onClick={async () => {
+                await copyAction('Copy', url, setCopy)
+                gtagEvent({
+                  action: 'Copy',
+                  category: 'Dialog',
+                  value: value
+                })
+              }}
+            >
               {copy ? <CopySuccessIcon /> : <CopyIcon />}
             </IconButton>
           </Tooltip>

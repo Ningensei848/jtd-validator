@@ -3,6 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
 import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
+import { GTM_ID } from 'src/components/GoogleAnalytics'
 
 export default class MyDocument extends Document {
   render() {
@@ -17,6 +18,18 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
+          {/* Google Tag Manager (noscript) */}
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<iframe
+              src='https://www.googletagmanager.com/ns.html?id=${GTM_ID}'
+              height='0'
+              width='0'
+              style='display:none;visibility:hidden'
+            ></iframe>`
+            }}
+          ></noscript>
+          {/* End Google Tag Manager (noscript) */}
           <Main />
           <NextScript />
         </body>
