@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/next-script-for-ga */
 
-import Script from 'next/script'
+// import Script from 'next/script'
 
 import { Ad_ID, existsAdId, GTM_ID, existsGtmId } from 'src/google'
 
@@ -25,7 +25,7 @@ export const GoogleTagManager = () => {
     return (
       <>
         {/* Google Tag Manager - Global base code */}
-        <Script
+        <script
           id='GoogleTagManagerGlobal'
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
