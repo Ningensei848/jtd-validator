@@ -4,7 +4,6 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
 import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
-import { GoogleAdsense, GoogleAnalytics, GoogleTagManager } from 'src/components/Google'
 import { GTM_ID } from 'src/google'
 
 export default class MyDocument extends Document {
@@ -18,9 +17,6 @@ export default class MyDocument extends Document {
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
           />
-          <GoogleTagManager />
-          <GoogleAnalytics />
-          <GoogleAdsense />
         </Head>
         <body>
           {/* Google Tag Manager - (noscript) */}

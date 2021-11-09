@@ -23,7 +23,6 @@ import Alerts from 'src/components/Alert'
 import ShareDialog from 'src/components/ShareDialog'
 import speedDialActions from 'src/action'
 import { GetServerSideProps } from 'next'
-import { event as gtagEvent } from 'src/google'
 
 const SchemaForm = dynamic(() => import('src/components/SchemaForm'), {
   ssr: false,
@@ -123,14 +122,7 @@ const Index: React.FC<{ defaultValue: string }> = ({ defaultValue }) => {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            onClick={async () => {
-              await speedDialActions(action.name, value, action.setState)
-              gtagEvent({
-                action: action.name,
-                category: 'SpeedDial',
-                value: value
-              })
-            }}
+            onClick={async () => await speedDialActions(action.name, value, action.setState)}
           />
         ))}
       </SpeedDial>
