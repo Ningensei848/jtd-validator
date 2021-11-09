@@ -2,9 +2,10 @@
 import * as React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
-import theme from '../src/theme'
-import createEmotionCache from '../src/createEmotionCache'
+import theme from 'src/theme'
+import createEmotionCache from 'src/createEmotionCache'
 import { GTM_ID } from 'src/google'
+import { GoogleTagManager, GoogleAdsense } from 'src/components/Google'
 
 export default class MyDocument extends Document {
   render() {
@@ -17,6 +18,8 @@ export default class MyDocument extends Document {
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
           />
+          <GoogleTagManager />
+          <GoogleAdsense />
         </Head>
         <body>
           {/* Google Tag Manager - (noscript) */}

@@ -8,7 +8,6 @@ import theme from 'src/theme'
 import createEmotionCache from 'src/createEmotionCache'
 import Layout from 'src/components/Layout'
 import { usePageView } from 'src/google'
-import { GoogleTagManager, GoogleAdsense } from 'src/components/Google'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -27,8 +26,6 @@ const App: React.FC<MyAppProps> = (props) => {
       <Head>
         <title>JSON Typed Definition Validator</title>
         <meta name='viewport' content='initial-scale=1, width=device-width' />
-        <GoogleTagManager />
-        <GoogleAdsense />
       </Head>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
