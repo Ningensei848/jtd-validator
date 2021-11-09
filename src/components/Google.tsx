@@ -15,9 +15,11 @@ declare var window: Window
 
 export const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''
 export const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || ''
+export const Ad_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ''
 
 // IDが取得できない場合を想定する
 export const existsGaId = GA_ID !== ''
+export const existsAdId = Ad_ID !== ''
 
 // PVを測定する
 export const pageview = (path: string) => {
@@ -106,4 +108,19 @@ export type Event = {
   category: string
   label?: Record<string, string | number | boolean>
   value?: string
+}
+
+export const GoogleAdsense: React.FC = () => {
+  if (!existsAdId) {
+    return <></>
+  } else {
+    return (
+      <Script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${Ad_ID}`}
+        crossOrigin='anonymous'
+        strategy='afterInteractive'
+      />
+    )
+  }
 }

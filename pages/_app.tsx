@@ -8,7 +8,7 @@ import theme from 'src/theme'
 import createEmotionCache from 'src/createEmotionCache'
 import Layout from 'src/components/Layout'
 
-import { GoogleAnalytics, usePageView } from 'src/components/GoogleAnalytics'
+import { GoogleAdsense, GoogleAnalytics, usePageView } from 'src/components/Google'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -23,6 +23,7 @@ const App: React.FC<MyAppProps> = (props) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
+        <GoogleAdsense />
         <GoogleAnalytics />
         <title>JSON Typed Definition Validator</title>
         <meta name='viewport' content='initial-scale=1, width=device-width' />

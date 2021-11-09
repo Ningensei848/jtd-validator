@@ -23,7 +23,7 @@ import Alerts from 'src/components/Alert'
 import ShareDialog from 'src/components/ShareDialog'
 import speedDialActions from 'src/action'
 import { GetServerSideProps } from 'next'
-import { event as gtagEvent } from 'src/components/GoogleAnalytics'
+import { event as gtagEvent } from 'src/components/Google'
 
 const SchemaForm = dynamic(() => import('src/components/SchemaForm'), {
   ssr: false,
@@ -86,7 +86,7 @@ const Index: React.FC<{ defaultValue: string }> = ({ defaultValue }) => {
     { icon: <ShareIcon />, name: 'Share', setState: setShare }
   ]
   return (
-    <Container maxWidth='lg'>
+    <Container maxWidth='md'>
       <Card sx={{ my: 2 }} elevation={3}>
         <CardHeader
           title={

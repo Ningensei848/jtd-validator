@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
 import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
-import { GTM_ID } from 'src/components/GoogleAnalytics'
+import { GTM_ID } from 'src/components/Google'
 
 export default class MyDocument extends Document {
   render() {

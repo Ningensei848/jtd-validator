@@ -34,7 +34,7 @@ const StickyFooter = () => {
           theme.palette.mode === 'light' ? theme.palette.grey[200] : theme.palette.grey[800]
       }}
     >
-      <Container maxWidth='lg'>
+      <Container maxWidth='md'>
         <Grid container>
           <Grid item xs={12} sm={11}>
             <Stack direction='row' spacing={2} alignItems='center'>
