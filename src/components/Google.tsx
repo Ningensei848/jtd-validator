@@ -1,126 +1,84 @@
-/* eslint-disable @next/next/inline-script-id */
-
+/* eslint-disable @next/next/next-script-for-ga */
 /*
  Next.jsでGoogle Analyticsを使えるようにする - パンダのプログラミングブログ cf. https://panda-program.com/posts/nextjs-google-analytics
 */
 
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
-import { useEffect } from 'react'
 
-interface Window {
-  gtag: any
-}
-declare var window: Window
+import { GA_ID, existsGaId, Ad_ID, existsAdId, pageview, GTM_ID } from 'src/google'
 
-export const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''
-export const GTM_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || ''
-export const Ad_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ''
-
-// IDが取得できない場合を想定する
-export const existsGaId = GA_ID !== ''
-export const existsAdId = Ad_ID !== ''
-
-// PVを測定する
-export const pageview = (path: string) => {
-  window.gtag('config', GA_ID, {
-    page_path: path
-  })
-}
-
-// GAイベントを発火させる
-export const event = ({ action, category, label, value = '' }: Event) => {
+export const GoogleAnalytics = () => {
   if (!existsGaId) {
-    return
-  }
-
-  window.gtag('event', action, {
-    event_category: category,
-    event_label: label ? JSON.stringify(label) : '',
-    value
-  })
-}
-
-// _app.tsx で読み込む
-export const usePageView = () => {
-  const router = useRouter()
-
-  useEffect(() => {
-    if (!existsGaId) {
-      return
-    }
-
-    const handleRouteChange = (path: string) => {
-      pageview(path)
-    }
-
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
-}
-
-// _app.tsx で読み込む
-export const GoogleAnalytics: React.FC = () => {
-  if (!existsGaId) {
-    return <></>
+    throw Error('GA_ID is not set')
   } else {
     return (
       <>
-        {/* Google Tag Manager */}
+        {/* Global Site Tag (gtag.js) - Google Analytics */}
+        <Script id='gtagjs' async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
         <Script
-          defer
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${GTM_ID}');
-              `
-          }}
-        />
-
-        <Script
-          defer
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy='afterInteractive'
-        />
-        <Script
-          defer
+          id='GoogleAnalytics'
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_ID}');
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
             `
           }}
-          strategy='afterInteractive'
         />
       </>
     )
   }
 }
 
-export type Event = {
-  action: string
-  category: string
-  label?: Record<string, string | number | boolean>
-  value?: string
-}
-
-export const GoogleAdsense: React.FC = () => {
+export const GoogleAdsense = () => {
   if (!existsAdId) {
-    return <></>
+    throw Error('Ad_ID is not set')
   } else {
     return (
-      <Script
+      <script
         async
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${Ad_ID}`}
         crossOrigin='anonymous'
-        strategy='afterInteractive'
       />
     )
   }
+}
+
+export const GoogleTagManager = () => {
+  if (!existsGaId) {
+    throw Error('GTM_ID is not set')
+  } else {
+    return (
+      <>
+        {/* Google Tag Manager - Global base code */}
+        <Script
+          id='GoogleTagManagerGlobal'
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${GTM_ID}');
+              `
+          }}
+        />
+      </>
+    )
+  }
+}
+
+export const GTMProvider: React.FC = ({ children }) => {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.events.on('routeChangeComplete', pageview)
+    return () => {
+      router.events.off('routeChangeComplete', pageview)
+    }
+  }, [router.events])
+
+  return <>{children}</>
 }

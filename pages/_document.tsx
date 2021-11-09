@@ -1,9 +1,11 @@
+/* eslint-disable @next/next/next-script-for-ga */
 import * as React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
 import theme from '../src/theme'
 import createEmotionCache from '../src/createEmotionCache'
-import { GTM_ID } from 'src/components/Google'
+import { GoogleAdsense, GoogleAnalytics, GoogleTagManager } from 'src/components/Google'
+import { GTM_ID } from 'src/google'
 
 export default class MyDocument extends Document {
   render() {
@@ -16,20 +18,20 @@ export default class MyDocument extends Document {
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
           />
+          <GoogleTagManager />
+          <GoogleAnalytics />
+          <GoogleAdsense />
         </Head>
         <body>
-          {/* Google Tag Manager (noscript) */}
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `<iframe
-              src='https://www.googletagmanager.com/ns.html?id=${GTM_ID}'
+          {/* Google Tag Manager - (noscript) */}
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
               height='0'
               width='0'
-              style='display:none;visibility:hidden'
-            ></iframe>`
-            }}
-          ></noscript>
-          {/* End Google Tag Manager (noscript) */}
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
           <Main />
           <NextScript />
         </body>

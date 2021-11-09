@@ -16,7 +16,7 @@ import CopySuccessIcon from '@mui/icons-material/LibraryAddCheck'
 
 import copyAction from 'src/action'
 import ShareButtons from 'src/components/ShareButton'
-import { event as gtagEvent } from 'src/components/Google'
+import { event as gtagEvent } from 'src/google'
 
 const delay = 1000
 const ShareDialog: React.FC<{

@@ -23,7 +23,7 @@ import Alerts from 'src/components/Alert'
 import ShareDialog from 'src/components/ShareDialog'
 import speedDialActions from 'src/action'
 import { GetServerSideProps } from 'next'
-import { event as gtagEvent } from 'src/components/Google'
+import { event as gtagEvent } from 'src/google'
 
 const SchemaForm = dynamic(() => import('src/components/SchemaForm'), {
   ssr: false,
