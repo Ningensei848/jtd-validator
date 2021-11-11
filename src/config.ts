@@ -19,7 +19,10 @@ import getConfig from 'next/config'
  *
  * @see https://maku.blog/p/xjjbwes
  */
+
 export function url(filename: string): string {
-    const { assetPrefix } = getConfig()
-    return assetPrefix + filename
+    const { publicRuntimeConfig } = getConfig() as {
+        publicRuntimeConfig: { assetPrefix: string }
+    }
+    return publicRuntimeConfig.assetPrefix + filename
 }

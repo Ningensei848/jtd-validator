@@ -9,5 +9,10 @@ module.exports = {
   // cf. https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix
   assetPrefix: process.env.CDN_URL || assetPrefix,
   // cf. https://nextjs.org/docs/api-reference/next.config.js/basepath
-  basePath: process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : ''
+  basePath: process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : '',
+
+  // publicRuntimeConfig: cf. https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration
+  publicRuntimeConfig: {
+    assetPrefix
+  },
 }
