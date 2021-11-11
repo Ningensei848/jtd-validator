@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import { decompressFromEncodedURIComponent as decode } from 'lz-string'
 import {
@@ -22,7 +22,6 @@ import Alerts from 'src/components/Alert'
 // import FormConfig from 'src/components/Config'
 import ShareDialog from 'src/components/ShareDialog'
 import speedDialActions from 'src/action'
-import { GetServerSideProps } from 'next'
 
 const SchemaForm = dynamic(() => import('src/components/SchemaForm'), {
   ssr: false,
@@ -47,38 +46,36 @@ const exampleJTD = {
   }
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { value } = query
-  if (typeof value !== 'string') {
-    return {
-      props: {
-        defaultValue: JSON.stringify(exampleJTD, null, '  ')
-      } // will be passed to the page component as props
+const defaultValue = JSON.stringify(exampleJTD, null, '  ')
+
+const useIsReady = (router: NextRouter, setValue: React.Dispatch<React.SetStateAction<string>>) => {
+  React.useEffect(() => {
+    if (!router.isReady) return
+
+    const { value: queryValue } = router.query
+    const initialValue = typeof queryValue === 'string' ? decode(queryValue) : defaultValue
+    router.replace(router.pathname, undefined, { shallow: true })
+
+    if (typeof initialValue !== 'string') {
+      return
+    } else {
+      setValue(initialValue)
     }
-  } else {
-    const decodedValue = decode(value)
-    return {
-      props: {
-        defaultValue: decodedValue
-      }
-    }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady])
 }
 
 // 構成要素：FORM，[isValidSchema, message, status], footer, header
 // additional: jtd-codegen via wasm
-const Index: React.FC<{ defaultValue: string }> = ({ defaultValue }) => {
+const Index: React.FC = () => {
   // TODO: OGP ?
-
   const router = useRouter()
+
   const [value, setValue] = React.useState(defaultValue)
   const [snack, setSnack] = React.useState(false)
   const [share, setShare] = React.useState(false)
   const { isValidSchema, message, status } = useJTDValidation(value) // debouncing depend on `value`
-
-  if (process.browser && new URLSearchParams(location.search).get('value')) {
-    router.replace(router.pathname, undefined, { shallow: true })
-  }
+  useIsReady(router, setValue)
 
   const actions = [
     { icon: <FileCopyIcon />, name: 'Copy', setState: setSnack },
