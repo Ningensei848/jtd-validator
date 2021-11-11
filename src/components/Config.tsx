@@ -1,12 +1,17 @@
 import * as React from 'react'
-import { Button, IconButton, Menu, MenuItem } from '@mui/material'
+import { Button, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
-// import DialogContent from '@mui/material/DialogContent'
-// import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
-import { MoreVert as MoreVertIcon } from '@mui/icons-material'
+import {
+  MoreVert as MoreVertIcon,
+  HelpOutline as HelpIcon
+  // AutoFixHigh as AutoFixIcon,
+  // Edit as EditIcon
+} from '@mui/icons-material'
+
+import Link from 'src/Link'
 
 const ConfigDialog: React.FC<{
   select: string
@@ -67,12 +72,15 @@ const Config: React.FC = () => {
           horizontal: 'right'
         }}
       >
-        <MenuItem
+        {/* <MenuItem
           onClick={() => {
             handleClose()
             setSelect('prettier')
           }}
         >
+          <ListItemIcon>
+            <AutoFixIcon fontSize='small' />
+          </ListItemIcon>
           Prettier Config
         </MenuItem>
         <MenuItem
@@ -81,8 +89,29 @@ const Config: React.FC = () => {
             setSelect('editor')
           }}
         >
+          <ListItemIcon>
+            <EditIcon fontSize='small' />
+          </ListItemIcon>
           Editor Config
-        </MenuItem>
+        </MenuItem> */}
+        <Link
+          href='https://github.com/Ningensei848/jtd-validator#how-to-use-'
+          target='_blank'
+          rel='noreferrer'
+          color='inherit'
+          underline='hover'
+          onClick={() => {
+            handleClose()
+            setSelect('')
+          }}
+        >
+          <MenuItem>
+            <ListItemIcon>
+              <HelpIcon fontSize='small' />
+            </ListItemIcon>
+            How to use
+          </MenuItem>
+        </Link>
       </Menu>
 
       <ConfigDialog {...{ select, setSelect }} />

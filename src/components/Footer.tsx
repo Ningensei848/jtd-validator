@@ -13,7 +13,7 @@ function Copyright() {
   return (
     <Typography variant='body2' color='text.secondary'>
       {'Copyright © '}
-      <Link color='inherit' href='https://github.com/jsontypedef'>
+      <Link color='inherit' href='https://github.com/jsontypedef' target='_blank' rel='noreferrer'>
         JSON Type Definition Contributors
       </Link>{' '}
       {new Date().getFullYear()}

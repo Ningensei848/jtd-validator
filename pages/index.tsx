@@ -19,7 +19,7 @@ import { FileCopyOutlined as FileCopyIcon, Share as ShareIcon } from '@mui/icons
 
 import { useJTDValidation } from 'src/validation'
 import Alerts from 'src/components/Alert'
-// import FormConfig from 'src/components/Config'
+import FormConfig from 'src/components/Config'
 import ShareDialog from 'src/components/ShareDialog'
 import speedDialActions from 'src/action'
 
@@ -86,14 +86,14 @@ const Index: React.FC = () => {
       <Card sx={{ my: 2 }} elevation={3}>
         <CardHeader
           title={
-            <Typography variant='h4' align='center' component='p'>
-              {isValidSchema ? '✨ Validated Successfully ✨' : '🚨 Invalid 🚨'}
+            <Typography variant='h4' align='center' component='h2'>
+              {isValidSchema ? '✨ Validated ✨' : '🚨 Invalid 🚨'}
             </Typography>
           }
-          // action={<FormConfig />}  // Underconstruction
+          action={<FormConfig />} // Underconstruction
           sx={{ mt: 1 }}
         />
-        <CardContent sx={{ mx: 2, py: 2 }}>
+        <CardContent sx={{ mx: 2, py: 2, minHeight: '70vh' }}>
           <Alerts status={status} message={message} />
           <SchemaForm value={value} setValue={setValue} />
         </CardContent>
