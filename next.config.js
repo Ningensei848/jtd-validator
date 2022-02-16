@@ -1,4 +1,3 @@
-
 const assetPrefix = process.env.BASE_PATH ? `/${process.env.BASE_PATH}` : ''
 
 module.exports = {
@@ -14,5 +13,5 @@ module.exports = {
   // publicRuntimeConfig: cf. https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration
   publicRuntimeConfig: {
     assetPrefix
-  },
+  }
 }
