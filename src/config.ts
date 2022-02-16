@@ -21,8 +21,8 @@ import getConfig from 'next/config'
  */
 
 export function url(filename: string): string {
-    const { publicRuntimeConfig } = getConfig() as {
-        publicRuntimeConfig: { assetPrefix: string }
-    }
-    return publicRuntimeConfig.assetPrefix + filename
+  const { publicRuntimeConfig } = getConfig() as {
+    publicRuntimeConfig: { assetPrefix: string }
+  }
+  return publicRuntimeConfig.assetPrefix + filename
 }

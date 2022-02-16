@@ -5,7 +5,6 @@ import createEmotionServer from '@emotion/server/create-instance'
 import theme from 'src/theme'
 import createEmotionCache from 'src/createEmotionCache'
 import { GTM_ID } from 'src/google'
-import { GoogleTagManager, GoogleAdsense } from 'src/components/Google'
 import { url } from 'src/config'
 
 const Favicons = () => {
@@ -31,13 +30,12 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name='theme-color' content={theme.palette.primary.main} />
+          <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
           <link
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
           />
           <Favicons />
-          <GoogleTagManager />
-          <GoogleAdsense />
         </Head>
         <body>
           {/* Google Tag Manager - (noscript) */}
